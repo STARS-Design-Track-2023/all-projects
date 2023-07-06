@@ -1,4 +1,4 @@
-module GuitarVillains_wrapper (
+module SaSS_wrapper (
 
     input logic clk, nrst,
     
@@ -28,26 +28,29 @@ module GuitarVillains_wrapper (
     end
 
 
-    Guitar_Villains DESIGN (
+    sass_synth DESIGN (
         .clk(clk),
         .n_rst(ff2),
-        .chip_select(ncs), 
-        
-        .button(gpio_in[3:0]),
-        .top_row(gpio_out[10:4]),
-        .buttom_row(gpio_out[17:11]), 
-        .red_disp(gpio_out[18]),
-        .green_disp(gpio_out[19]),
-        .ss0(gpio_out[26:20]),
-        .ss1(gpio_out[33:27])
+        .cs(ncs),
+
+        .piano_keys(gpio_in[14:0]),
+        .seq_power(gpio_in[15]),
+        .tempo_select(gpio_in[16]),
+        .seq_play(gpio_in[17]),
+
+        .mode_out(gpio_out[19:18]),
+        .beat_led(gpio_out[27:20]),
+        .seq_led_on(gpio_out[28]),
+
+        .pwm_o(gpio_out[29])
     );
 
 
     // correctly assign gpio_oeb outputs
-    assign gpio_oeb = {{30{1'b0}}, {4{1'b1}}}; 
+    assign gpio_oeb = {{4{1'b1}}, {12{1'b0}}, {18{1'b1}} }; 
 
 
     // assign 0s to unused gpio_output pins
-    assign gpio_out[3:0] = 4'b0000; 
+    assign {gpio_out[33:30], gpio_out[17:0]} = {22{1'b0}}; 
 
 endmodule
