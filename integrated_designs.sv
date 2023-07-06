@@ -91,7 +91,7 @@ SaSS_wrapper design_2
         .gpio_in(gpio_in),
         .gpio_out(designs_gpio_out[2]), 
         .gpio_oeb(designs_gpio_oeb[2])
-)
+);
 
 
 
