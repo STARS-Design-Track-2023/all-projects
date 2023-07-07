@@ -53,8 +53,9 @@ logic[12:1] designs_cs; // active low chip select input for the designs.
 
 */
 
-assign gpio_out = designs_gpio_out[design_select]; 
-assign gpio_oeb = designs_gpio_oeb[design_select]; 
+    // in the case where the design_select value does not correspond to a particular design, set all IOs to be inputs and set gpio_out to be all 0s 
+    assign gpio_out = (design_select > 4'd0 && design_select < 4'd13) ? designs_gpio_out[design_select] : 'b0; 
+    assign gpio_oeb = (design_select > 4'd0 && design_select < 4'd13) ? designs_gpio_oeb[design_select] : 'b1; 
 
 
 
@@ -63,7 +64,9 @@ assign gpio_oeb = designs_gpio_oeb[design_select];
 always_comb begin
     designs_cs = {12{1'b1}}; // default is off 
 
-    design_cs[design_select] == 1'b0; // turn on the selected design
+    if(design_select > 4'd0 && design_select < 4'd13) begin
+        design_cs[design_select] == 1'b0; // turn on the selected design
+    end 
 end
 
 
