@@ -1,5 +1,5 @@
 `default_nettype none
-module top_level_wrapper (
+module silly_synth_wrapper (
     // HW
     input logic clk, nrst,
     
