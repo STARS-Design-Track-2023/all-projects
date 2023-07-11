@@ -72,7 +72,14 @@ end
 
 
 
-/* For instantiating the designs, use design_1, design_2, ..., design_12 as the instance name */
+/* 
+Find your team's design and uncomment it here.
+
+!!!!!!DO THIS FIRST!!!!!!
+Update your wrapper module to correctly map the pins according to the spreadsheet
+
+Then you can uncomment and make sure the module name matches
+*/
 
 /*
 Absentees_Wrapper design_1
