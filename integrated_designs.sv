@@ -133,7 +133,7 @@ Geriatrics_Wrapper design_4
 );
 */
     
-GuitarVillains_Wrapper design_5
+GuitarVillains_wrapper design_5
 (
     .clk(clk),
     .n_rst(n_rst),
