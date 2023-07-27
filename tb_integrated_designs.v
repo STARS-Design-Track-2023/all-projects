@@ -108,7 +108,7 @@ module tb_integrated_designs ();
 
     /* --- Port Map (One for gl sim and the other for RTL sim) --- */
     `ifdef USE_POWER_PINS
-    top_asic DUT
+    integrated_designs DUT
     (
         .VPWR(1),
         .VGND(0),
@@ -120,7 +120,7 @@ module tb_integrated_designs ();
         .gpio_oeb(tb_gpio_oeb)
     );
     `else
-    top_asic DUT
+    integrated_designs DUT
     (
         .clk(tb_clk),
         .n_rst(tb_nrst),
