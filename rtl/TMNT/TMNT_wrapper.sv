@@ -8,27 +8,10 @@ module TMNT_wrapper (
     output logic [33:0] gpio_oeb // Active Low Output Enable
 );
 
-    // Reset Synchronizer
-
-    logic ff1, ff2;
-    assign gated_reset = ~ncs & nrst;
-
-    always_ff @(posedge clk, negedge gated_reset) begin
-        if(~gated_reset) begin
-            ff1 <= 1'b0; 
-            ff2 <= 1'b0; 
-        end
-        else begin
-            ff1 <= 1'b1; 
-            ff2 <= ff1; 
-        end
-
-    end
-
     top_asic DUT
     (
         .clk(clk),
-        .nrst(ff2),
+        .nrst(nrst)
         .sigout(gpio_out[15]),
         .mode_out(gpio_out[17:16]),
         .pb(gpio_in[14:0])

@@ -1,6 +1,4 @@
-`default_nettype none
-module silly_synth_wrapper (
-    // HW
+module EightyTwos_Wrapper (
     input logic clk, nrst,
     
     // Wrapper
@@ -10,17 +8,18 @@ module silly_synth_wrapper (
     output logic [33:0] gpio_oeb // Active Low Output Enable
 );
 
-    assign gpio_oeb = {1'b0, {33{1'b1}}};
+    logic store_en;
 
-    silly_synthesizer synth (
+    Eighty_Twos DESIGN (
         .clk(clk),
-        // .nrst(ff2),
         .nrst(nrst),
         .cs(ncs),
-        .gpio(gpio_in[16:0]),
-        .pwm(gpio_out[33])
+        .gpi(gpio_in),  // CHECK gpi[23] function
+        .gpo(gpio_out),
+        .store_en(store_en)
     );
 
-    assign gpio_out[32:0] = {33{1'b0}};
+    // assign gpio_oeb outputs
+    assign gpio_oeb = {{26{1'b0}}, {8{~store_en}}};
 
 endmodule

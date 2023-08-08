@@ -9,28 +9,9 @@ module SaSS_wrapper (
     output logic [33:0] gpio_oeb // Active Low Output Enable
 );
 
-
-    // Reset Synchronizer
-
-    logic ff1, ff2;
-    assign gated_reset = ~ncs & nrst;
-
-    always_ff @(posedge clk, negedge gated_reset) begin
-        if(~gated_reset) begin
-            ff1 <= 1'b0; 
-            ff2 <= 1'b0; 
-        end
-        else begin
-            ff1 <= 1'b1; 
-            ff2 <= ff1; 
-        end
-
-    end
-
-
     sass_synth DESIGN (
         .clk(clk),
-        .n_rst(ff2),
+        .n_rst(nrst),
         .cs(ncs),
 
         .piano_keys(gpio_in[14:0]),
@@ -45,10 +26,8 @@ module SaSS_wrapper (
         .pwm_o(gpio_out[29])
     );
 
-
     // correctly assign gpio_oeb outputs
     assign gpio_oeb = {{4{1'b1}}, {12{1'b0}}, {18{1'b1}} }; 
-
 
     // assign 0s to unused gpio_output pins
     assign {gpio_out[33:30], gpio_out[17:0]} = {22{1'b0}}; 
