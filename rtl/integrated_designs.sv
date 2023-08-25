@@ -67,7 +67,7 @@ always_comb begin
     designs_cs = {12{1'b1}}; // default is off 
 
     if(design_select > 4'd0 && design_select < 4'd13) begin
-        design_cs[design_select] == 1'b0; // turn on the selected design
+        design_cs[design_select] = 1'b0; // turn on the selected design
     end 
 end
 
